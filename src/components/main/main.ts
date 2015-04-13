@@ -3,18 +3,12 @@
 module typescriptDemo {
     class MainController {
 
-        todos: string[] = [];
+        todos: string[];
 
-        static $inject = ['$router', '$http']
-        constructor(private $router, private $http: angular.IHttpService) {
-            this.getTodos();
+        static $inject = ['$router', '$http', 'typescriptDemo.services.todoService'];
+        constructor(private $router, private $http: angular.IHttpService, private todoService: typescriptDemo.services.TodoService) {
+            this.todos = todoService.retreiveTodos();
         }
-
-        getTodos() {
-            this.todos.push('I like bacon');
-            this.todos.push('I like Pigs');
-        }
-
     }
     angular.module('typescriptDemo.main', []).controller('MainController', MainController);
 }

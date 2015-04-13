@@ -10,6 +10,12 @@
     },
     "jquery/jquery.d.ts": {
       "commit": "55ffe0e1ee1595009e9e230a46f719c7a09e2e8d"
+    },
+    "jasmine/jasmine.d.ts": {
+      "commit": "8f16b0fd1acd81a555b74f912da849dccc7c9a42"
+    },
+    "angularjs/angular-mocks.d.ts": {
+      "commit": "8f16b0fd1acd81a555b74f912da849dccc7c9a42"
     }
   }
 }

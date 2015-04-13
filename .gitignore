@@ -4,3 +4,4 @@ node_modules
 tools/typings/jquery
 tools/typings/angularjs
 .idea
+tools/typings/jasmine

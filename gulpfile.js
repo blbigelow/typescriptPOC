@@ -10,7 +10,8 @@ var gulp = require('gulp'),
     tslint = require('gulp-tslint'),
     sourcemaps = require('gulp-sourcemaps'),
     rimraf = require('gulp-rimraf'),
-    Config = require('./gulpfile.config');
+    Config = require('./gulpfile.config'),
+    karma = require('karma').server;
 
 var config = new Config();
 
@@ -59,6 +60,28 @@ gulp.task('compile-ts', function () {
 });
 
 /**
+ * Compile TypeScript and include references to library and app .d.ts files.
+ */
+gulp.task('compile-test-ts', function () {
+    var sourceTsFiles = [config.allTestTypeScript,                //path to typescript files
+        config.libraryTypeScriptDefinitions, //reference to library .d.ts files
+        config.appTypeScriptReferences];     //reference to app.d.ts files
+
+    var tsResult = gulp.src(sourceTsFiles)
+        .pipe(sourcemaps.init())
+        .pipe(tsc({
+            target: 'ES5',
+            declarationFiles: false,
+            noExternalResolve: true
+        }));
+
+    tsResult.dts.pipe(gulp.dest(config.tsOutputPath));
+    return tsResult.js
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(config.tsTestOutputPath));
+});
+
+/**
  * Copy HTML to public folder
  */
 gulp.task('copy-html', function () {
@@ -89,10 +112,17 @@ gulp.task('clean-html', function() {
         .pipe(rimraf());
 });
 
+gulp.task('test', function(done) {
+    karma.start({
+        configFile: './karma.conf.js',
+        singleRun: true
+    }, done);
+});
+
 gulp.task('clean-all', ['clean-ts', 'clean-html']);
 
 gulp.task('watch', function() {
-    gulp.watch([config.allTypeScript, config.srcHtml], ['ts-lint', 'compile-ts', 'copy-html', 'gen-ts-refs']);
+    gulp.watch([config.allTypeScript, config.srcHtml], ['ts-lint', 'compile-ts', 'compile-test-ts', 'copy-html', 'gen-ts-refs']);
 });
 
-gulp.task('default', ['ts-lint', 'compile-ts', 'copy-html', 'gen-ts-refs', 'watch']);
+gulp.task('default', ['ts-lint', 'compile-ts', 'compile-test-ts', 'copy-html', 'gen-ts-refs', 'watch']);

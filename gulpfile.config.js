@@ -8,14 +8,17 @@ var GulpConfig = (function () {
         //Don't hurt me AC :-)
         this.source = './src/';
         this.publicDir = './public/';
+        this.test = './test';
 
         this.sourceApp = this.source + 'app/';
         this.sourceComponents = this.source + 'components/';
 
         this.tsOutputPath = this.publicDir;
+        this.tsTestOutputPath = this.test;
         this.allJavaScript = [this.source + 'js/**/*.js'];
 
         this.allTypeScript = this.source + '**/*.ts';
+        this.allTestTypeScript = this.test + '**/*.ts';
 
         this.typings = './tools/typings/';
         this.libraryTypeScriptDefinitions = './tools/typings/**/*.ts';
