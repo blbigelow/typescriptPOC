@@ -17,7 +17,14 @@ Run the following:
 
 To run the demo appication:
 
-* Run default gulp task. This will to the initial compilation and population of the public directory. The task will
+* Run default gulp task. This will do the initial compilation and population of the public directory. The task will
 also watch the src contents to compile and copy files as needed when making changes to the code.
 * Run `http-server -p 3000`
 * load [http://localhost:3000](http://localhost:3000) in your browser
+
+
+## Development
+
+The default gulp task will handle all of the basic needs of your development. If needed you can delete all of the
+generated code by running `clean-all`. If you need to just clean the html files `clean-html`.
+
