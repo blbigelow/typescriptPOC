@@ -18,7 +18,7 @@ var GulpConfig = (function () {
         this.allJavaScript = [this.source + 'js/**/*.js'];
 
         this.allTypeScript = this.source + '**/*.ts';
-        this.allTestTypeScript = this.test + '**/*.ts';
+        this.allTestTypeScript = this.test + '/**/*.ts';
 
         this.typings = './tools/typings/';
         this.libraryTypeScriptDefinitions = './tools/typings/**/*.ts';
@@ -26,6 +26,7 @@ var GulpConfig = (function () {
         this.appTypeScriptReferences = this.typings + 'typescriptDemo.d.ts';
 
         this.srcHtml = this.source + '**/*.html';
+        this.srcStyles = this.source + '/styles/**';
     }
     return GulpConfig;
 })();

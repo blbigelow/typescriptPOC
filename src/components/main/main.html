@@ -1,6 +1,10 @@
 <div>
-    Main Html Test
-    <ul>
-        <li ng-repeat="todo in main.todos">{{todo}}</li>
-    </ul>
+    <h4 class="md-headline">Main Html Test</h4>
+    <md-list>
+        <md-list-item ng-repeat="todo in main.todos">
+            <div class="md-list-item-text">
+                <md-icon md-font-icon="icon-food"></md-icon>{{todo}}
+            </div>
+        </md-list-item>
+    </md-list>
 </div>

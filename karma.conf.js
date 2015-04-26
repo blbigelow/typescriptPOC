@@ -22,7 +22,11 @@ module.exports = function(config) {
         'public/bower_packages/angular/angular.js',
         'public/bower_packages/router/dist/router.es5.js',
         'public/bower_packages/angular-mocks/angular-mocks.js',
-        'public/**/*.js',
+        'public/bower_packages/angular-material/angular-material.js',
+        'public/bower_packages/angular-animate/angular-animate.js',
+        'public/bower_packages/angular-aria/angular-aria.js',
+        'public/app/**/*.js',
+        'public/components/**/*.js',
         'test/**/*.js'
     ],
 

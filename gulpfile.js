@@ -63,16 +63,17 @@ gulp.task('compile-ts', function () {
  * Compile TypeScript and include references to library and app .d.ts files.
  */
 gulp.task('compile-test-ts', function () {
-    var sourceTsFiles = [config.allTestTypeScript,                //path to typescript files
-        config.libraryTypeScriptDefinitions, //reference to library .d.ts files
-        config.appTypeScriptReferences];     //reference to app.d.ts files
+    var sourceTsFiles = [config.allTestTypeScript,
+        config.libraryTypeScriptDefinitions
+    ];                //path to typescript files
+
 
     var tsResult = gulp.src(sourceTsFiles)
         .pipe(sourcemaps.init())
         .pipe(tsc({
             target: 'ES5',
             declarationFiles: false,
-            noExternalResolve: true
+            noExternalResolve: false
         }));
 
     tsResult.dts.pipe(gulp.dest(config.tsOutputPath));
@@ -85,7 +86,9 @@ gulp.task('compile-test-ts', function () {
  * Copy HTML to public folder
  */
 gulp.task('copy-html', function () {
-    var htmlFiles = [config.srcHtml];
+    var htmlFiles = [config.srcHtml, config.srcStyles];
+
+
 
     return gulp.src(htmlFiles)
         .pipe(gulp.dest(config.publicDir));
@@ -96,9 +99,13 @@ gulp.task('copy-html', function () {
  * Remove all generated JavaScript files from TypeScript compilation.
  */
 gulp.task('clean-ts', function () {
-    var typeScriptGenFiles = [config.tsOutputPath,            // path to generated JS files
+    var typeScriptGenFiles = [config.tsOutputPath + '/app',  // path to generated JS files
+        config.tsOutputPath + '/components',
         config.sourceApp +'**/*.js',    // path to all JS files auto gen'd by editor
-        config.sourceApp +'**/*.js.map' // path to all sourcemap files auto gen'd by editor
+        config.sourceApp +'**/*.js.map', // path to all sourcemap files auto gen'd by editor
+        config.tsTestOutputPath + '/**/*.js',
+        config.tsTestOutputPath + '/**/*.js.map',
+        '!' + config.publicDir + '/bower_packages/**/*'
     ];
 
     // delete the files
@@ -107,14 +114,18 @@ gulp.task('clean-ts', function () {
 });
 
 gulp.task('clean-html', function() {
-    var htmlCleanUp = ['./public/*.html', config.publicDir + '/app/**/*.html', config.publicDir + '/components/**/*.html'];
+    var htmlCleanUp = ['./public/*.html',
+        config.publicDir + '/app/**/*.html',
+        config.publicDir + '/components/**/*.html',
+        '!' + config.publicDir + '/bower_packages'
+    ];
     return gulp.src(htmlCleanUp, {read: false})
         .pipe(rimraf());
 });
 
 gulp.task('test', function(done) {
     karma.start({
-        configFile: './karma.conf.js',
+        configFile: __dirname + '/karma.conf.js',
         singleRun: true
     }, done);
 });
@@ -122,7 +133,7 @@ gulp.task('test', function(done) {
 gulp.task('clean-all', ['clean-ts', 'clean-html']);
 
 gulp.task('watch', function() {
-    gulp.watch([config.allTypeScript, config.srcHtml], ['ts-lint', 'compile-ts', 'compile-test-ts', 'copy-html', 'gen-ts-refs']);
+    gulp.watch([config.allTypeScript, config.allTestTypeScript, config.srcHtml], ['ts-lint', 'compile-ts', 'compile-test-ts', 'copy-html', 'gen-ts-refs', 'test']);
 });
 
 gulp.task('default', ['ts-lint', 'compile-ts', 'compile-test-ts', 'copy-html', 'gen-ts-refs', 'watch']);

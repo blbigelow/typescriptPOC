@@ -4,12 +4,21 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>TypeScriptDemo</title>
+        <link rel="stylesheet" href="bower_packages/angular-material/angular-material.css">
+        <link rel="stylesheet" href="bower_packages/icomoon/dist/css/style.css">
     </head>
-    <body ng-controller="AppController">
-        <h4>Typescript Demo</h4>
-        <div ng-viewport></div>
+    <body layout="column" ng-controller="AppController">
+        <md-toolbar layout="row">
+            <h1 class="md-toolbar-tools" layout-align-gt-sm="center">Typescript Demo</h1>
+        </md-toolbar>
+        <div layout="row" flex ng-viewport>
+
+        </div>
 
         <script src="bower_packages/angular/angular.js"></script>
+        <script src="bower_packages/angular-aria/angular-aria.js"></script>
+        <script src="bower_packages/angular-animate/angular-animate.js"></script>
+        <script src="bower_packages/angular-material/angular-material.js"></script>
         <script src="bower_packages/router/dist/router.es5.js"></script>
         <script src="app/app.js"></script>
         <script src="app/services/todoService.js"></script>

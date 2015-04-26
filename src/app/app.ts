@@ -4,7 +4,7 @@
 'use strict';
 
 (() : void => {
-    angular.module('typescriptDemo', ['typescriptDemo.main', 'ngNewRouter'])
+    angular.module('typescriptDemo', ['typescriptDemo.main', 'ngNewRouter', 'ngMaterial'])
         .controller('AppController', ['$router', AppController]);
 
         function AppController($router) {
