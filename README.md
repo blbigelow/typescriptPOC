@@ -9,6 +9,7 @@ as files change.
 Run the following:
 
 * `npm install http-server -g`
+* `npm install tsd -g`
 * `npm install`
 * `bower install`
 * `tsd install`
